@@ -20,4 +20,15 @@ function onSongStart()
     noteTweenAlpha('hideHUDthingyaaa5', 5, 0, 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001, 'linear')
     noteTweenAlpha('hideHUDthingyaaa6', 6, 0, 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001, 'linear')
     noteTweenAlpha('hideHUDthingyaaa7', 7, 0, 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001, 'linear')
+
+    setProperty('boyfriend.visible', false)
+    setProperty('gf.visible', false)
+    setProperty('dad.visible', false)
+
+    setProperty('healthBar.visible', false)
+    setProperty('iconP1.visible', false)
+    setProperty('iconP2.visible', false)
+    setProperty('scoreTxt.visible', false)
+    setProperty('timeTxt.visible', false)
+    setProperty('timeBar.visible', false)
 end
