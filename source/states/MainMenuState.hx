@@ -25,14 +25,12 @@ class MainMenuState extends MusicBeatState
 
 	//Centered/Text options
 	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		'credits'
+		'lua scripts',
+		'options',
 	];
 
 	var leftOption:String = #if ACHIEVEMENTS_ALLOWED 'achievements' #else null #end;
-	var rightOption:String = 'options';
+	var rightOption:String = null;
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;

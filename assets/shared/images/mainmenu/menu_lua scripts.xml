@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Funkin Packer v0.1.3 DEV https://neeeoo.github.io/funkin-packer/
+-->
+<TextureAtlas imagePath="menu_lua_scripts.png" width="1662" height="163" spritePadding="0" borderPadding="1">
+	<SubTexture name="lua scripts idle" x="1" y="72" width="723" height="90" frameX="0" frameY="0" frameWidth="723" frameHeight="90"/>
+	<SubTexture name="lua scripts selected" x="724" y="72" width="723" height="90" frameX="0" frameY="0" frameWidth="723" frameHeight="90"/>
+	<SubTexture name="lua scripts watermark" x="1" y="1" width="1660" height="71" frameX="-1" frameY="-11" frameWidth="1663" frameHeight="99"/>
+</TextureAtlas>
