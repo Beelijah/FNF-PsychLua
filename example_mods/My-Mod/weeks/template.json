@@ -1,0 +1,23 @@
+{
+	"storyName": "template",
+	"difficulties": "Normal",
+	"hideFreeplay": false,
+	"weekBackground": "none",
+	"weekBefore": "tutorial",
+	"startUnlocked": true,
+	"weekCharacters": [],
+	"hideStoryMode": false,
+	"songs": [
+		[
+			"test",
+			"egg",
+			[
+				55,
+				193,
+				133
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"weekName": "template"
+}

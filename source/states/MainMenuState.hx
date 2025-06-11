@@ -26,6 +26,7 @@ class MainMenuState extends MusicBeatState
 	//Centered/Text options
 	var optionShit:Array<String> = [
 		'lua scripts',
+		'credits',
 		'options',
 	];
 
@@ -293,7 +294,7 @@ class MainMenuState extends MusicBeatState
 					{
 						case 'story_mode':
 							MusicBeatState.switchState(new StoryMenuState());
-						case 'freeplay':
+						case 'lua scripts':
 							MusicBeatState.switchState(new FreeplayState());
 
 						#if MODS_ALLOWED
