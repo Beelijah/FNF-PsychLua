@@ -326,6 +326,7 @@ class FreeplayState extends MusicBeatState
 		if(FlxG.keys.justPressed.CONTROL && !player.playingMusic)
 		{
 			persistentUpdate = false;
+			openSubState(new GameplayChangersSubstate());
 		}
 		else if (controls.ACCEPT && !player.playingMusic)
 		{
@@ -376,6 +377,14 @@ class FreeplayState extends MusicBeatState
 			DiscordClient.loadModRPC();
 			#end
 		}
+		else if(controls.RESET && !player.playingMusic)
+		{
+			persistentUpdate = false;
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+		}
+
+		updateTexts(elapsed);
+		super.update(elapsed);
 	}
 	
 	function getVocalFromCharacter(char:String)
