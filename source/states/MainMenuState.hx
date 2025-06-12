@@ -93,7 +93,7 @@ class MainMenuState extends MusicBeatState
 			rightItem.x -= rightItem.width;
 		}
 
-		var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
+		var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion + " | Psych Lua v1.1.0", 12);
 		psychVer.scrollFactor.set();
 		psychVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(psychVer);
