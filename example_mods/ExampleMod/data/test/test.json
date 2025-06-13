@@ -1,6 +1,6 @@
 {
-	"songName": "none",
-	"songId": "none",
+	"songName": "test",
+	"songId": "empty",
 	"player1": "bf",
 	"player2": "bf",
 	"notes": [
@@ -18,7 +18,7 @@
 	],
 	"player3": "gf",
 	"offset": 0,
-	"song": "none",
+	"song": "empty",
 	"validScore": true,
 	"format": "psych_v1_convert",
 	"speed": 2.4,

@@ -21,6 +21,9 @@ local incorrectDraws = 0
 
 -- okay now im actually getting really good at lua scripting
 -- i am proud, as i started not that long ago :D
+
+-- by scrambled_egg3
+
 function onCountdownStarted()
     local value2 = 0.001
 
@@ -37,6 +40,17 @@ function onCountdownStarted()
     setTextSize('moddingTut', 32)
     setTextAlignment('moddingTut', 'center')
     addLuaText('moddingTut')
+
+    precacheMusic('artistic-expression')
+    playSound('artistic-expression', 1, 'musichaha', true)
+end
+
+function onPause()
+    pauseSound('musichaha')
+end
+
+function onResume()
+    resumeSound('musichaha')
 end
 
 function onUpdate(elapsed)
