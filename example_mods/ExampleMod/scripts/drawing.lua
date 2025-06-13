@@ -9,6 +9,7 @@ local hasWritten = 0
 local bgMoveTime = 10
 local spotlightMoveTime = 3
 local loopaErase = 0
+local loopDat = false
 
 local moveSpotlightX = 267
 local moveSpotlightY = -345
@@ -30,6 +31,12 @@ function onCountdownStarted()
     addLuaSprite('moddingMouse', true)
 
     scaleObject('moddingMouse', 0.5, 0.5, true)
+
+    makeLuaText('moddingTut', 'Click to draw, Hold Back to erase.', 0, 320, 0)
+    setTextFont('moddingTut', 'vcr.ttf')
+    setTextSize('moddingTut', 32)
+    setTextAlignment('moddingTut', 'center')
+    addLuaText('moddingTut')
 end
 
 function onUpdate(elapsed)
@@ -63,21 +70,6 @@ function onUpdate(elapsed)
 
     IsmousePressed = mousePressed()
     debugKeyPressed = keyPressed('back')
-
-    if usingEraser then
-        if IsmousePressed then
-            loopaErase = loopaStart
-            repeat
-            touchingCurrentCircle = objectsOverlap('moddingMouse', 'circle' .. loopaErase)
-
-            if touchingCurrentCircle then
-                removeLuaSprite('circle' .. loopaErase, false)
-            end
-
-            loopaErase = loopaErase + 1
-            until loopaErase = loopa
-        end
-    end
 
     if IsmousePressed then
         if not shouldBeRemovingArt then 

@@ -70,7 +70,7 @@ class FreeplayState extends MusicBeatState
 		{
 			FlxTransitionableState.skipNextTransIn = true;
 			persistentUpdate = false;
-			MusicBeatState.switchState(new states.ErrorState("NO WEEKS ADDED FOR FREEPLAY\n\nPress ACCEPT to go to the Week Editor Menu.\nPress BACK to return to Main Menu.",
+			MusicBeatState.switchState(new states.ErrorState("NO SCRIPTS ADDED FOR SCRIPTS MENU\n\nPress BACK to return to Main Menu.",
 				function() MusicBeatState.switchState(new states.editors.WeekEditorState()),
 				function() MusicBeatState.switchState(new states.MainMenuState())));
 			return;
@@ -243,7 +243,7 @@ class FreeplayState extends MusicBeatState
 
 		if (!player.playingMusic)
 		{
-			scoreText.text = Language.getPhrase('personal_best', 'PERSONAL BEST: {1} ({2}%)', [lerpScore, ratingSplit.join('.')]);
+			scoreText.text = Language.getPhrase('');
 			positionHighscore();
 			
 			if(songs.length > 1)
@@ -420,9 +420,9 @@ class FreeplayState extends MusicBeatState
 		lastDifficultyName = Difficulty.getString(curDifficulty, false);
 		var displayDiff:String = Difficulty.getString(curDifficulty);
 		if (Difficulty.list.length > 1)
-			diffText.text = '< ' + displayDiff.toUpperCase() + ' >';
+			diffText.text = '';
 		else
-			diffText.text = displayDiff.toUpperCase();
+			diffText.text = '';
 
 		positionHighscore();
 		missingText.visible = false;
