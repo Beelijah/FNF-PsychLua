@@ -41,6 +41,7 @@ class FreeplayState extends MusicBeatState
 	private var iconArray:Array<HealthIcon> = [];
 
 	var bg:FlxSprite;
+	var bgCOVER:FlxSprite;
 	var intendedColor:Int;
 
 	var missingTextBG:FlxSprite;
@@ -56,8 +57,11 @@ class FreeplayState extends MusicBeatState
 	{
 		//Paths.clearStoredMemory();
 		//Paths.clearUnusedMemory();
-		
-		persistentUpdate = true;
+
+		if (Paths.getTextFromFile("autoLaunch.txt", true) == "false")
+		{
+			persistentUpdate = true;
+		}
 		PlayState.isStoryMode = false;
 		WeekData.reloadWeekFiles(false);
 
@@ -141,9 +145,10 @@ class FreeplayState extends MusicBeatState
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
+		scoreText.alpha = 0; // haha fixed it
 
 		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
-		scoreBG.alpha = 0.6;
+		scoreBG.alpha = 0;
 		add(scoreBG);
 
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
@@ -172,19 +177,27 @@ class FreeplayState extends MusicBeatState
 		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
 
 		bottomBG = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
-		bottomBG.alpha = 0.6;
+		bottomBG.alpha = 0;
 		add(bottomBG);
 
-		var leText:String = Language.getPhrase("freeplay_tip", "");
+		var leText:String = ""; // originally i had "raaaa" here but yk it actually showed up
 		bottomString = leText;
 		var size:Int = 16;
 		bottomText = new FlxText(bottomBG.x, bottomBG.y + 4, FlxG.width, leText, size);
 		bottomText.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, CENTER);
 		bottomText.scrollFactor.set();
-		add(bottomText);
+		// add(bottomText);
 		
 		player = new MusicPlayer(this);
 		add(player);
+
+		if (Paths.getTextFromFile("autoLaunch.txt", true) == "true")
+		{
+			bgCOVER = new FlxSprite().loadGraphic(Paths.image('RAAAAA'));
+			bgCOVER.antialiasing = false;
+			add(bgCOVER);
+			bgCOVER.screenCenter();
+		}
 		
 		changeSelection();
 		updateTexts();
@@ -194,7 +207,11 @@ class FreeplayState extends MusicBeatState
 	override function closeSubState()
 	{
 		changeSelection(0, false);
-		persistentUpdate = true;
+		if (Paths.getTextFromFile("autoLaunch.txt", true) == "false")
+		{
+			persistentUpdate = true;
+		}
+
 		super.closeSubState();
 	}
 
@@ -243,7 +260,7 @@ class FreeplayState extends MusicBeatState
 
 		if (!player.playingMusic)
 		{
-			scoreText.text = Language.getPhrase('');
+			scoreText.text = "raaaa"; // nvm it was on this one that it showed up
 			positionHighscore();
 			
 			if(songs.length > 1)
@@ -380,6 +397,59 @@ class FreeplayState extends MusicBeatState
 
 		updateTexts(elapsed);
 		super.update(elapsed);
+
+		if (Paths.getTextFromFile("autoLaunch.txt", true) == "true")
+		{
+			trace("autoLaunch.txt found! (assets/shared/autoLaunch.txt)");
+			trace("Loading the top script...");
+
+			persistentUpdate = false;
+			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
+			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
+
+			try
+			{
+				Song.loadFromJson(poop, songLowercase);
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = curDifficulty;
+
+				trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
+			}
+			catch(e:haxe.Exception)
+			{
+				trace('ERROR! ${e.message}');
+
+				var errorStr:String = e.message;
+				if(errorStr.contains('There is no TEXT asset with an ID of')) errorStr = 'Missing file: ' + errorStr.substring(errorStr.indexOf(songLowercase), errorStr.length-1); //Missing chart
+				else errorStr += '\n\n' + e.stack;
+
+				missingText.text = 'ERROR WHILE LOADING CHART:\n$errorStr';
+				missingText.screenCenter(Y);
+				missingText.visible = true;
+				missingTextBG.visible = true;
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+
+				updateTexts(elapsed);
+				super.update(elapsed);
+				return;
+			}
+
+			@:privateAccess
+			if(PlayState._lastLoadedModDirectory != Mods.currentModDirectory)
+			{
+				trace('CHANGED MOD DIRECTORY, RELOADING STUFF');
+				Paths.freeGraphicsFromMemory();
+			}
+			LoadingState.prepareToSong();
+			LoadingState.loadAndSwitchState(new PlayState());
+			#if !SHOW_LOADING_SCREEN FlxG.sound.music.stop(); #end
+			stopMusicPlay = true;
+
+			destroyFreeplayVocals();
+			#if (MODS_ALLOWED && DISCORD_ALLOWED)
+			DiscordClient.loadModRPC();
+			#end
+		}
 	}
 	
 	function getVocalFromCharacter(char:String)
@@ -436,7 +506,7 @@ class FreeplayState extends MusicBeatState
 
 		curSelected = FlxMath.wrap(curSelected + change, 0, songs.length-1);
 		_updateSongLastDifficulty();
-		if(playSound) FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		if(playSound && Paths.getTextFromFile("autoLaunch.txt", true) == "false") FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 		var newColor:Int = songs[curSelected].color;
 		if(newColor != intendedColor)
@@ -483,7 +553,7 @@ class FreeplayState extends MusicBeatState
 	private function positionHighscore()
 	{
 		scoreText.x = FlxG.width - scoreText.width - 6;
-		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
+		scoreBG.scale.x = 1;
 		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
 		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
 		diffText.x -= diffText.width / 2;

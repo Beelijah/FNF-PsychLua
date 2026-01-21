@@ -18,6 +18,8 @@ import shaders.ColorSwap;
 import states.StoryMenuState;
 import states.MainMenuState;
 
+// import lime.system.System; // please oh please comment ts out
+
 typedef TitleData =
 {
 	var titlex:Float;
@@ -109,6 +111,16 @@ class TitleState extends MusicBeatState
 		else
 			startIntro();
 		#end
+
+		// trace(Paths.getPath("autoLaunch.txt"));
+
+		if (Paths.getTextFromFile("autoLaunch.txt", true) == "true")
+		{
+			trace("autoLaunch.txt found! (assets/shared/autoLaunch.txt)");
+			trace("Moving to Freeplay...");
+
+			MusicBeatState.switchState(new FreeplayState());
+		}
 	}
 
 	var logoBl:FlxSprite;

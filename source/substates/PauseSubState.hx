@@ -81,10 +81,11 @@ class PauseSubState extends MusicBeatSubstate
 		add(levelInfo);
 
 		var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, Difficulty.getString().toUpperCase(), 32);
-		levelDifficulty.scrollFactor.set();
-		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
-		levelDifficulty.updateHitbox();
-		add(levelDifficulty);
+		// levelDifficulty.scrollFactor.set();
+		// levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
+		// levelDifficulty.updateHitbox();
+		// add(levelDifficulty); // hopefully this doesnt break anything :D
+		                         // it did but mainly because i removed the line with var at the start
 
 		practiceText = new FlxText(20, 15 + 101, 0, Language.getPhrase("Practice Mode").toUpperCase(), 32);
 		practiceText.scrollFactor.set();

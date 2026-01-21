@@ -17,10 +17,10 @@
 
 HEY
 Thanks for downloadin Friday Night FUNKIN'
-If you downloaded this from any other place than ninja-muffin24.itch.io/FUNKIN
+If you downloaded this from any other place than https://github.com/Beelijah/FNF-PsychLua
 You might be in DANGER!!! 
 
-The Itch.io release is the only official source for the desktop (PC, Mac, Linux) versions of the game!
+The Github release is the only official source for the desktop (PC, Mac, Linux) versions of the game!
 As of right now, the game is FREE! If you paid for it, you got SCAMMED!
 
 Now that that's out of the way....
